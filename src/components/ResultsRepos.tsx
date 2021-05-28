@@ -23,7 +23,6 @@ const ResultRepos = (props : any) => {
         <ul className="repoList">
             {listRepositories}
         </ul>
-        
         </>
     )
 }

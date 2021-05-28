@@ -1,0 +1,11 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+}
+
+.pagination li {
+    list-style: none;
+    margin: 0 5px;
+    cursor: pointer;
+}
