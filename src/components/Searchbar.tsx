@@ -40,7 +40,6 @@ const Searchbar = (props : object) => {
 
     const handleChange = (e: any) => {
         setSearchInput(e.target.value);
-        setRepositories([]);
     }
 
     const handleScroll = (e: any) => {
@@ -50,6 +49,12 @@ const Searchbar = (props : object) => {
         if (scrollHeight - scrollTop === clientHeight) {
         setPageNumber(prev => prev + 1);
             console.log('working 2');
+        }
+    }
+
+    const checkSearch = (searchWord:string) => {
+        if (searchWord && search.trim()){
+            return true
         }
     }
 
@@ -64,16 +69,10 @@ const Searchbar = (props : object) => {
         }
         
     }
-    
-
-    const handleChangeTwo = () => {
-        setLoading(true);
-        
-    }
 
     return (
         <div className='ass'> 
-            <form noValidate autoComplete="off">
+            <form autoComplete="off">
                 <TextField 
                     id="standard-basic" 
                     placeholder="Write repo name" 
@@ -83,11 +82,18 @@ const Searchbar = (props : object) => {
                 <Button 
                     variant="contained" 
                     color="primary" 
-                    onClick={() => requestGetRepositories(pageNumber)}>
-                    Lets roll
+                    onClick={() =>{
+                        if(checkSearch(search)){
+                            setRepositories([]);
+                            requestGetRepositories(pageNumber);
+                        } else {
+                            setSearchInput('Dont be a fool');
+                        }
+                    } }>
+                    Let's roll
                 </Button>
             </form>
-            <ResultRepos repositories = {repositories} handleScroll={handleScroll} onLoad={handleChangeTwo} state={loading}/>
+            <ResultRepos repositories = {repositories} handleScroll={handleScroll} />
         </div>
     )
 }
