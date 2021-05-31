@@ -7,22 +7,19 @@ import ResultRepos from './ResultsRepos';
 
 
 const Searchbar = (props : object) => {
-    const firstRenderRef = useRef(true);
-    const [search, setSearchInput] = useState('');
+    const firstRenderRef = useRef<boolean>(true);
+    const [search, setSearchInput] = useState<string>('');
     const [repositories, setRepositories] = useState<Array<object>>([]);
-    const [pageNumber, setPageNumber] = useState(1);
-    const [loading, setLoading] = useState(true);
+    const [pageNumber, setPageNumber] = useState<number>(1);
+    const [loading, setLoading] = useState<boolean>(true);
     
     
-    document.addEventListener('scroll', function(e) {
-        console.log( Math.ceil(document.body.offsetHeight - (window.scrollY + window.innerHeight)));
+    document.addEventListener('scroll', function() {
         if(
             Math.ceil(document.body.offsetHeight - (window.scrollY + window.innerHeight)) < 10 && loading
         ){
             setLoading(false); 
-           // console.log(loading);
             setPageNumber(prev => prev + 1);
-            console.log('finally, only one load');
         }
     });
 
@@ -30,52 +27,45 @@ const Searchbar = (props : object) => {
         if (firstRenderRef.current) {
             firstRenderRef.current = false;
           } else {
-            
             requestGetRepositories(pageNumber);
             window.scrollTo(0, window.scrollY - 100);
-            console.log(loading);
             setLoading(true);
           }
     },[pageNumber]);
 
-    const handleChange = (e: any) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchInput(e.target.value);
     }
 
-    const handleScroll = (e: any) => {
-        console.log('working 1');
-        const { scrollTop, clientHeight, scrollHeight } = e.currentTarget;
-        
-        if (scrollHeight - scrollTop === clientHeight) {
-        setPageNumber(prev => prev + 1);
-            console.log('working 2');
-        }
-    }
-
+    
     const checkSearch = (searchWord:string) => {
         if (searchWord && search.trim()){
             return true
         }
     }
 
-    const requestGetRepositories = async (pageNumber: any) => {
+    const requestGetRepositories = async (pageNumber: number) => {
         if(loading){
             await fetch(`https://api.github.com/search/repositories?q=${search}&sort=stars&per_page=15&page=${pageNumber}`)
             .then(res => res.json())
             .then(data => {
-            console.log(data);
+                if(data.items){
                     setRepositories(reps => [...reps, ...data.items]);
-            }).catch((err:any) => alert('too much requests, fix it'));
+                } else {
+                    throw new Error('To many requests, wait a minute');
+                }
+                    
+            }).catch(() => alert('too much requests, fix it'));
         }
         
     }
 
     return (
-        <div className='ass'> 
+        <div> 
             <form autoComplete="off">
                 <TextField 
                     id="standard-basic" 
-                    placeholder="Write repo name" 
+                    placeholder="Write repository name" 
                     value={search} 
                     onChange={handleChange}
                     required/>
@@ -89,11 +79,11 @@ const Searchbar = (props : object) => {
                         } else {
                             setSearchInput('Dont be a fool');
                         }
-                    } }>
+                    }}>
                     Let's roll
                 </Button>
             </form>
-            <ResultRepos repositories = {repositories} handleScroll={handleScroll} />
+            <ResultRepos repositories = {repositories}/>
         </div>
     )
 }
