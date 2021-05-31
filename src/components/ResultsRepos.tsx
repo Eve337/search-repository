@@ -1,13 +1,11 @@
 import React from 'react';
-import { useState } from 'react';
 import './ResultsRepos.css';
 import SimpleCard from './Card';
 
-const ResultRepos = (props : any) => {
+const ResultRepos:React.FC<{repositories: object}> = (props: any) => {
     const { repositories } = props;
-    console.log(repositories);
-    const listRepositories = repositories.length !== 0 ? 
-     repositories.items.map((el:any, index: number) => 
+    const listRepositories = repositories.length > 0 && 
+     repositories.map((el: any, index: number) => 
      
      <SimpleCard 
         className = "card"
@@ -16,18 +14,15 @@ const ResultRepos = (props : any) => {
         key = {el.id} 
         url = {el.html_url} 
         creator = {el.owner.login}
-        description = {el.description}/>) : <li>No repositories was found</li>
+        description = {el.description}/>);
 
     return (
-        <>
-        <ul className="repoList">
-            {listRepositories}
-        </ul>
-        
-        </>
+        <div>
+            <ul className="repoList">
+                {listRepositories}
+            </ul>
+        </div>
     )
 }
 
 export default ResultRepos;
-
-//<li>{ el.html_url }</li>

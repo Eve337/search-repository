@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import Searchbar from './components/Searchbar';
 
-function App() {
+const App:React.FC = () => {
   return (
     <div className="App">
       <h1>Search</h1>
