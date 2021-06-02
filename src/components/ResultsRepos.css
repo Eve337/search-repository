@@ -1,11 +1,10 @@
 .repoList {
-    text-align: center;
-    list-style-type: none;
-    padding-left: 0;
-    margin: auto;
-    
+  text-align: center;
+  list-style-type: none;
+  padding-left: 0;
+  margin: auto;
 }
 
-.repoList div{
-    margin: 15px 0;
+.repoList div {
+  margin: 15px 0;
 }
