@@ -1,29 +1,19 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import "./App.css";
-import Searchbar from "./components/Searchbar";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from "react-router-dom";
-import RepositoryPage from "./../src/components/RepositoryPage";
+import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
+import Main from "./components/Search";
+import RepositoryPage from "./components/card/RepositoryPage";
 
-const App: React.FC = () => {
+function App() {
+  const dispatch = useDispatch();
   return (
     <Router>
-      <div className='App'>
-        <Switch>
-          <Route exact path='/' component={Searchbar} />
-          <Route
-            path='/RepositoryPage/:username/:reponame'
-            component={RepositoryPage}
-          />
-          <Redirect to='/' />
-        </Switch>
-      </div>
+      <Route exact path='/' component={Main} />
+      <Route path='/RepositoryPage/:username/:reponame' component={RepositoryPage} />
+      {/*<Redirect to='/' />*/}
     </Router>
   );
-};
+}
 
 export default App;

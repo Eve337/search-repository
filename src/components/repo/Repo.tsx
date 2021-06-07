@@ -23,33 +23,28 @@ const useStyles = makeStyles({
   },
 });
 
-export default function SimpleCard(props: any) {
+export function Repo(props: any) {
+  const repo = props.repo;
   const classes = useStyles();
 
   return (
     <Card className={classes.root}>
       <CardContent>
-        <Typography
-          className={classes.title}
-          color='textSecondary'
-          gutterBottom
-        >
+        <Typography className={classes.title} color='textSecondary' gutterBottom>
           {props.index}
         </Typography>
         <Typography variant='h5' component='h2'>
-          <NavLink to={`/RepositoryPage/${props.creator}/${props.name}`}>
-            {props.name}
-          </NavLink>
+          <NavLink to={`/RepositoryPage/${repo.owner.login}/${repo.name}`}>{repo.name}</NavLink>
         </Typography>
         <Typography className={classes.pos} color='textSecondary'>
-          {props.creator}
+          {repo.owner.login}
         </Typography>
         <Typography variant='body2' component='p'>
-          {props.description}
+          {repo.description}
         </Typography>
 
         <Typography variant='body1' component='p'>
-          <Link href={props.url}>Link to github</Link>
+          <Link href={repo.html_url}>Link to github</Link>
         </Typography>
       </CardContent>
     </Card>
