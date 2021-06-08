@@ -1,0 +1,19 @@
+.wrapper {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  margin: 25px;
+}
+
+.addToFavourites {
+  display: flex;
+  align-items: center;
+  padding-right: 5px;
+}
+
+.addToFavourites svg {
+  cursor: pointer;
+}
+.addToFavourites svg:hover {
+  color: rgb(255, 4, 4);
+}

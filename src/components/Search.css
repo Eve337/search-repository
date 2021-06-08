@@ -1,3 +1,30 @@
 .searchWrapper {
   text-align: center;
+  display: flex;
+  position: relative;
+}
+.wrapper-favourite-link {
+  padding-left: 10px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.FavouriteLink {
+  vertical-align: middle;
+  position: relative;
+  text-decoration: none;
+  color: #f58985;
+}
+
+.FavouriteLink:hover {
+  color: #ff0800;
+}
+
+.temp {
+  margin-top: auto;
+}
+
+.temp2 {
+  width: 100%;
 }

@@ -8,6 +8,8 @@ import Button from "@material-ui/core/Button";
 import { useState } from "react";
 import { setCurrentPage, setReposClear } from "./reducers/reposReducer";
 import "./Search.css";
+import { NavLink } from "react-router-dom";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 
 const Search: React.FC = () => {
   const [searchString, setSearchString] = useState("");
@@ -57,28 +59,35 @@ const Search: React.FC = () => {
   return (
     <>
       <div className='searchWrapper'>
-        <h1>Search</h1>
-        <form autoComplete='off'>
-          <TextField
-            value={searchString}
-            onChange={handleChange}
-            id='standard-basic'
-            placeholder='Write repository name'
-            required
-          />
-          <Button
-            variant='contained'
-            color='primary'
-            onClick={() => {
-              if (checkSearch(searchString)) {
-                handleClick();
-              } else {
-                setSearchString("Dont be a fool");
-              }
-            }}>
-            Search
-          </Button>
-        </form>
+        <div className='wrapper-favourite-link'>
+          <NavLink className='FavouriteLink' to={`/Favourite`}>
+            <FavoriteIcon />
+          </NavLink>
+        </div>
+        <div className='temp2'>
+          <h1>Search</h1>
+          <form autoComplete='off'>
+            <TextField
+              value={searchString}
+              onChange={handleChange}
+              id='standard-basic'
+              placeholder='Write repository name'
+              required
+            />
+            <Button
+              variant='contained'
+              color='primary'
+              onClick={() => {
+                if (checkSearch(searchString)) {
+                  handleClick();
+                } else {
+                  setSearchString("Dont be a fool");
+                }
+              }}>
+              Search
+            </Button>
+          </form>
+        </div>
       </div>
       {repos.map((repo: any) => (
         <Repo repo={repo} />
