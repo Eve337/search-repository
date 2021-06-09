@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import FavouriteCard from "./FavouriteCard";
+import RepositoryCard from "../repositoryCard/repositoryCard";
 
 export const Favourites: React.FC = () => {
   const [dataFavourites, setDataFavourites] = useState([]);
@@ -9,7 +9,7 @@ export const Favourites: React.FC = () => {
   }, []);
 
   function handleDelete(index: any, repository: any) {
-    let newList = dataFavourites;
+    let newList = [...dataFavourites];
     newList.splice(index, 1);
     localStorage.removeItem(repository.name);
     setDataFavourites([...newList]);
@@ -29,7 +29,7 @@ export const Favourites: React.FC = () => {
   return (
     <div>
       {dataFavourites.map((el: any, index) => (
-        <FavouriteCard {...el} handleDelete={() => handleDelete(index, el)} />
+        <RepositoryCard {...el} handleFunc={() => handleDelete(index, el)} />
       ))}
     </div>
   );

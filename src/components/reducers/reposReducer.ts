@@ -1,10 +1,3 @@
-/*const SET_REPOS = "SET_REPOS";
-const SET_IS_FETCHING = "SET_IS_FETCHING";
-const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
-const SET_FETCH_ERROR = "SET_FETCH_ERROR";
-const SET_REPOS_CLEAR = "SET_REPOS_CLEAR";
-const SET_CURR_REPO = "SET_CURR_REPO";*/
-
 import { RepositoryAction, RepositoryActionTypes, TypeState } from "../types/types";
 
 const defaultState: TypeState = {
