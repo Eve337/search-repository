@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRepositories } from "./actions/repos";
 import { RootState } from "./index";
-import { Repo } from "./repo/Repo";
 import { TextField } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import { useState } from "react";
@@ -10,6 +9,7 @@ import { setCurrentPage, setReposClear } from "./reducers/reposReducer";
 import "./Search.css";
 import { NavLink } from "react-router-dom";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import RepositoryCard from "./repositoryCard/repositoryCard";
 
 const Search: React.FC = () => {
   const [searchString, setSearchString] = useState("");
@@ -56,6 +56,10 @@ const Search: React.FC = () => {
     dispatch(fetchRepositories(searchString, count, 15));
   }, [count]);
 
+  function addToFavouritePage(repository: any) {
+    localStorage.setItem(repository.name, JSON.stringify(repository));
+  }
+
   return (
     <>
       <div className='searchWrapper'>
@@ -89,8 +93,8 @@ const Search: React.FC = () => {
           </form>
         </div>
       </div>
-      {repos.map((repo: any) => (
-        <Repo repo={repo} />
+      {repos.map((repo: object) => (
+        <RepositoryCard {...repo} handleFunc={addToFavouritePage} />
       ))}
     </>
   );
